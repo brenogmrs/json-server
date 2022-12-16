@@ -1,0 +1,37 @@
+{
+  "books": [
+    {
+      "author": "author",
+      "id": 1,
+      "name": "teste_update_cinco"
+    },
+    {
+      "author": "author",
+      "id": 2,
+      "name": "Name"
+    }
+  ],
+  "users": [
+    {
+      "age": 0,
+      "email": "email",
+      "id": 2,
+      "name": "Name",
+      "password": "password"
+    },
+    {
+      "age": 0,
+      "email": "email",
+      "id": 4,
+      "name": "Name",
+      "password": "password"
+    },
+    {
+      "age": 0,
+      "email": "email",
+      "id": 5,
+      "name": "Name",
+      "password": "password"
+    }
+  ]
+}
