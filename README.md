@@ -1,6 +1,6 @@
 # json-server
 
-### this is a simplistic implementation of javascripts [json-server](https://www.npmjs.com/package/json-server){:target="\_blank"} using Go! It uses the the file called `db.json` at the root of the project to create a Web Server using the resources of it.
+### this is a simplistic implementation of javascripts [json-server](https://www.npmjs.com/package/json-server){:target="blank"} using Go! It uses the the file called `db.json` at the root of the project to create a Web Server using the resources of it.
 
 ---
 
