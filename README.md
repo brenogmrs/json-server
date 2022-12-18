@@ -28,3 +28,8 @@
   ]
 }
 ```
+
+## TODO List
+
+- create a generic field validator for POST and PUT requests
+- create a generic filtering by multiple query params for GET request
