@@ -1,6 +1,6 @@
 # json-server
 
-### this is a simplistic implementation of javascripts json-server using Go!. It uses the the file called `db.json` at the root of the project to create a Web Server using the resources of a JSON file.
+### this is a simplistic implementation of javascripts json-server using Go! It uses the the file called `db.json` at the root of the project to create a Web Server using the resources of a JSON file.
 
 ## JSON example:
 
