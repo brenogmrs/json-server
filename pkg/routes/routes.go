@@ -10,12 +10,12 @@ import (
 
 func InitRoutes(r *gin.RouterGroup, resources []string) {
 
-	for _, str := range resources {
+	for _, resource := range resources {
 
-		route := fmt.Sprintf("/%s/", str)
+		route := fmt.Sprintf("/%s/", resource)
 		idParam := ":id"
 
-		serviceHandler := service.New(str)
+		serviceHandler := service.New(resource)
 		controller := controller.New(serviceHandler)
 
 		r.GET(route, controller.GetAll)
@@ -26,6 +26,6 @@ func InitRoutes(r *gin.RouterGroup, resources []string) {
 
 	}
 
-	// field validation for Create and Update
+	// TODO field validation for Create and Update
 
 }
