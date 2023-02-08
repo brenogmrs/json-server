@@ -36,7 +36,6 @@ func (this *controller) Create(c *gin.Context) {
 
 	c.JSON(http.StatusCreated, createdBody)
 
-	return
 }
 
 func (this *controller) GetAll(c *gin.Context) {
@@ -52,7 +51,6 @@ func (this *controller) GetAll(c *gin.Context) {
 	}
 
 	c.Data(http.StatusOK, "application/json", []byte(data))
-	return
 }
 
 func (this *controller) GetById(c *gin.Context) {
@@ -77,7 +75,6 @@ func (this *controller) GetById(c *gin.Context) {
 
 	c.JSON(http.StatusOK, data)
 
-	return
 }
 
 func (this *controller) Update(c *gin.Context) {
