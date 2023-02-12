@@ -22,9 +22,9 @@ func New(service service.IService) controller {
 	}
 }
 
-func (this *controller) Create(c *gin.Context) {
+func (c *controller) Create(ctx *gin.Context) {
 
-	bodyAsByteArray, err := io.ReadAll(c.Request.Body)
+	bodyAsByteArray, err := io.ReadAll(ctx.Request.Body)
 	utils.ErrorChecker(err)
 
 	jsonBody := string(bodyAsByteArray)
@@ -32,15 +32,15 @@ func (this *controller) Create(c *gin.Context) {
 	var valuesMap map[string]interface{}
 	json.Unmarshal([]byte(jsonBody), &valuesMap)
 
-	createdBody := this.service.Create(valuesMap)
+	createdBody := c.service.Create(valuesMap)
 
-	c.JSON(http.StatusCreated, createdBody)
+	ctx.JSON(http.StatusCreated, createdBody)
 
 }
 
-func (this *controller) GetAll(c *gin.Context) {
+func (c *controller) GetAll(ctx *gin.Context) {
 
-	requestedResource := this.service.GetAll()
+	requestedResource := c.service.GetAll()
 
 	jsonStr, err := json.Marshal(requestedResource)
 
@@ -50,45 +50,44 @@ func (this *controller) GetAll(c *gin.Context) {
 		fmt.Println("error: ", err)
 	}
 
-	c.Data(http.StatusOK, "application/json", []byte(data))
+	ctx.Data(http.StatusOK, "application/json", []byte(data))
 }
 
-func (this *controller) GetById(c *gin.Context) {
+func (c *controller) GetById(ctx *gin.Context) {
 
-	id, err := strconv.Atoi(c.Param("id"))
+	id, err := strconv.Atoi(ctx.Param("id"))
 
 	if err != nil {
 		customError := utils.NewBadRequestError("unprocessable id")
 
-		c.JSON(customError.Code, customError)
+		ctx.JSON(customError.Code, customError)
 		return
 	}
 
-	data, err := this.service.GetById(id)
+	data, err := c.service.GetById(id)
 
 	if err != nil {
 		customError := utils.NewNotFoundError("Resource not found")
 
-		c.JSON(customError.Code, customError)
+		ctx.JSON(customError.Code, customError)
 		return
 	}
 
-	c.JSON(http.StatusOK, data)
-
+	ctx.JSON(http.StatusOK, data)
 }
 
-func (this *controller) Update(c *gin.Context) {
+func (c *controller) Update(ctx *gin.Context) {
 
-	id, err := strconv.Atoi(c.Param("id"))
+	id, err := strconv.Atoi(ctx.Param("id"))
 
 	if err != nil {
 		customError := utils.NewBadRequestError("unprocessable id")
 
-		c.JSON(customError.Code, customError)
+		ctx.JSON(customError.Code, customError)
 		return
 	}
 
-	bodyAsByteArray, err := io.ReadAll(c.Request.Body)
+	bodyAsByteArray, err := io.ReadAll(ctx.Request.Body)
 	utils.ErrorChecker(err)
 
 	jsonBody := string(bodyAsByteArray)
@@ -96,32 +95,32 @@ func (this *controller) Update(c *gin.Context) {
 	var valuesMap map[string]interface{}
 	json.Unmarshal([]byte(jsonBody), &valuesMap)
 
-	if _, ok := valuesMap["id"]; ok {
+	if valuesMap["id"] != nil {
 		delete(valuesMap, "id")
 	}
 
-	updatedBody := this.service.Update(id, valuesMap)
+	updatedBody := c.service.Update(id, valuesMap)
 
-	c.JSON(http.StatusOK, updatedBody)
+	ctx.JSON(http.StatusOK, updatedBody)
 }
 
-func (this *controller) Delete(c *gin.Context) {
+func (c *controller) Delete(ctx *gin.Context) {
 
-	id, err := strconv.Atoi(c.Param("id"))
+	id, err := strconv.Atoi(ctx.Param("id"))
 
 	if err != nil {
 		customError := utils.NewBadRequestError("Unprocessable id")
 
-		c.JSON(customError.Code, customError)
+		ctx.JSON(customError.Code, customError)
 		return
 	}
 
-	if err := this.service.Delete(id); err != nil {
+	if err := c.service.Delete(id); err != nil {
 		customError := utils.NewNotFoundError("Resource not found")
 
-		c.JSON(customError.Code, customError)
+		ctx.JSON(customError.Code, customError)
 		return
 	}
 
-	c.JSON(http.StatusNoContent, nil)
+	ctx.JSON(http.StatusNoContent, nil)
 }
