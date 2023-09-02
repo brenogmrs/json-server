@@ -3,7 +3,7 @@ package providers
 import (
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
+	"io"
 	"json-server/pkg/utils"
 	"os"
 )
@@ -24,7 +24,7 @@ func GetDBData() map[string]interface{} {
 
 	defer file.Close()
 
-	byteValue, err := ioutil.ReadAll(file)
+	byteValue, err := io.ReadAll(file)
 	utils.ErrorChecker(err)
 
 	var data map[string]any
@@ -112,7 +112,7 @@ func SetJSON(data map[string]any) error {
 
 	resourcesFilePath := workDir + "/" + "db.json"
 
-	err = ioutil.WriteFile(resourcesFilePath, jsonByteArray, 0644)
+	err = os.WriteFile(resourcesFilePath, jsonByteArray, 0644)
 
 	if err != nil {
 		return err
